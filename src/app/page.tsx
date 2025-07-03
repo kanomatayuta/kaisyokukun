@@ -1,7 +1,7 @@
 // src/app/page.tsx
 "use client"; // Client Componentとしてマーク
 
-import { useState, useEffect, FC } from "react"; // ReactNodeを削除
+import { useState, useEffect, FC } from "react";
 import Image from "next/image";
 
 // --- 型定義 ---
@@ -483,7 +483,7 @@ export default function HomePage() {
     setCurrentPage(1);
     // キーワードが「選択してください」または空の場合はエラーを表示し、検索を実行しない
     if (keyword === "" || keyword === "選択してください") {
-      setError("お知らせ: エリアを選択してください。"); // エラーメッセージを修正
+      setError("エリアを選択してください。"); // エラーメッセージを修正
       setShops(null); // 以前の検索結果をクリア
       setLastSearchCriteria(null); // 更新ボタンを非活性のままにする
       setIsLoading(false); // ローディング状態をリセット
@@ -526,9 +526,13 @@ export default function HomePage() {
 
   return (
     // 全体の背景を温かいグラデーションに、フォントとテキスト色、アンチエイリアスを調整
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 font-sans text-gray-800 antialiased flex flex-col">
+    <div
+      className="min-h-screen bg-fixed bg-cover bg-center antialiased flex flex-col"
+      style={{ backgroundImage: 'url("/backgrand_img.jpeg")' }}
+    >
+      {" "}
+      {/* 背景画像を設定 */}
       <Header />
-
       <main className="container mx-auto p-4 max-w-4xl py-8 flex-grow">
         <SearchForm
           keyword={keyword}
@@ -590,7 +594,6 @@ export default function HomePage() {
           </div>
         )}
       </main>
-
       <Footer />
     </div>
   );
