@@ -1,7 +1,7 @@
 // src/app/page.tsx
 "use client"; // Client Componentとしてマーク
 
-import { useState, useEffect, FC, ReactNode } from "react";
+import { useState, useEffect, FC } from "react"; // ReactNodeを削除
 import Image from "next/image";
 
 // --- 型定義 ---
@@ -468,8 +468,11 @@ export default function HomePage() {
           setShops([]);
         }
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      // anyをunknownに修正
+      const errorMessage =
+        err instanceof Error ? err.message : "不明なエラーが発生しました。";
+      setError(errorMessage);
       setShops([]);
     } finally {
       setIsLoading(false);
@@ -480,7 +483,7 @@ export default function HomePage() {
     setCurrentPage(1);
     // キーワードが「選択してください」または空の場合はエラーを表示し、検索を実行しない
     if (keyword === "" || keyword === "選択してください") {
-      setError(" エリアを選択してください。"); // エラーメッセージを修正
+      setError("お知らせ: エリアを選択してください。"); // エラーメッセージを修正
       setShops(null); // 以前の検索結果をクリア
       setLastSearchCriteria(null); // 更新ボタンを非活性のままにする
       setIsLoading(false); // ローディング状態をリセット
